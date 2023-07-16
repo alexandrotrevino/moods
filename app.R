@@ -205,7 +205,7 @@ ui <- f7Page(
           intensity = 16,
           f7Card(
             outline = T,
-            title = "My Moods",
+            title = "Hourly Feelings",
             tableOutput(outputId = "table")
           )
         ),
@@ -213,7 +213,7 @@ ui <- f7Page(
           intensity = 16,
           f7Card(
             outline = T,
-            title = "Mood over time",
+            title = "Mood Levels, Pain Levels, and Sleep Quality",
             plotOutput(outputId = "plot")
           )
         ),
@@ -282,8 +282,11 @@ server <- function(input, output, session) {
     dat <- LoadData()
     
     output$table <- renderTable({
-      dat[order(dat$Timestamp, decreasing = T), c("Date", "Time", "Overall", "Pain", "Emotions")]
-    })
+      disp <- dat %>% 
+        mutate(Overall = format(round(Overall, 2), nsmall = 1),
+               Pain = format(round(Pain, 2), nsmall = 1))
+      disp[order(disp$Timestamp, decreasing = T), c("Date", "Time", "Overall", "Pain", "Emotions")]
+    }, striped = T, bordered = T, align = c("llccr"))
     
     # Plot the data----------
     
@@ -406,15 +409,6 @@ server <- function(input, output, session) {
                     ),
                     f7Icon("hand_thumbsup_fill")
                   )
-                )
-              ),
-              f7Shadow(
-                intensity = 24,
-                hover = TRUE,
-                f7Card(
-                  outline = T,
-                  title = "How did you sleep?",
-                  
                 )
               ),
               f7Shadow(
