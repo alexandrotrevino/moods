@@ -5,7 +5,7 @@ account: alexfreedom
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 9378408
-bundleId: 7410426
+bundleId: 7461093
 url: https://alexfreedom.shinyapps.io/moods/
-when: 1688257150.24573
-lastSyncTime: 1688257150.24574
+when: 1689466710.32228
+lastSyncTime: 1689466710.3223
